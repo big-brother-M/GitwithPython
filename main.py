@@ -46,10 +46,15 @@ def main():
             elif choice == 4:
                 game.show_best_score()
             elif choice == 5:
+                print("\n데이터를 저장합니다.")
+                game.save_data()
                 print("\n게임을 종료합니다.")
                 break
+
     except (KeyboardInterrupt, EOFError):
-        print("\n\n프로그램이 강제 종료되었습니다. 안전하게 종료합니다.")
+        print("\n\n프로그램이 강제 종료되었습니다. 데이터를 저장 후 종료합니다")
+        game.save_data()
+        print("\n\n데이터를 저장하는데 성공했습니다 게임을 종료합니다.")
         sys.exit(0)
 
 if __name__ == "__main__":

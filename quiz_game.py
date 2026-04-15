@@ -1,9 +1,58 @@
+import json
+import os
+
 from quiz import Quiz, get_default_quizzers
 
 class QuizGame:
     def __init__(self):
-        self.quizzes = get_default_quizzers()
+        self.file_path = "state.json"
+        self.quizzes = []
         self.best_score = 0
+        self.load_data()
+
+    def save_data(self):
+        quiz_dicts = []
+        for q in self.quizzes:
+            quiz_dicts.append({
+                "question" : q.question,
+                "choices" : q.choices,
+                "answer" : q.answer
+            })
+
+        data = {
+            "quizzes" : quiz_dicts,
+            "best_score" : self.best_score
+        }
+
+        try:
+            with open(self.file_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+        except Exception as e:
+            print(f"데이터 저장 실패: {e}")
+
+    def load_data(self):
+        if not os.path.exists(self.file_path):
+            print("저장된 데이터가 없습니다. 기본 퀴즈를 불러옵니다.")
+            self.quizzes = get_default_quizzers()
+            return
+        try:
+            with open(self.file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            self.best_score = data.get("best_score", 0)
+            self.quizzes = []
+            for q_data in data.get("quizzes", []):
+                quiz = Quiz(
+                    question=q_data["question"],
+                    choices=q_data["choices"],
+                    answer=q_data["answer"]
+                )
+                self.quizzes.append(quiz)
+            print(f"데이터를 불러왔습니다. (퀴즈 {len(self.quizzes)}개, 최고점수 {self.best_score}점)")
+        except (json.JSONDecodeError, KeyError):
+            print("데이터 파일이 손상되었습니다. 기본 퀴즈로 초기화합니다.")            
+            self.quizzes = get_default_quizzers()
+            self.best_score = 0
 
     def play_quiz(self):
         if not self.quizzes:
