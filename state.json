@@ -8,7 +8,8 @@
                 "귀도 반 로섬",
                 "이재용"
             ],
-            "answer": 3
+            "answer": 3,
+            "hint": "힌트가 존재하지 않습니다."
         },
         {
             "question": "다음 중 PYTHON의 기본 자료형이 아닌것은?",
@@ -18,7 +19,8 @@
                 "list",
                 "array"
             ],
-            "answer": 4
+            "answer": 4,
+            "hint": "힌트가 존재하지 않습니다."
         },
         {
             "question": "Git에서 변경사항을 확정짓는 명령어는?",
@@ -28,7 +30,8 @@
                 "git push",
                 "git pull"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": "힌트가 존재하지 않습니다."
         },
         {
             "question": "PYTHON에서 무한 반복을 할 때 주로 사용하는 것은?",
@@ -38,7 +41,8 @@
                 "if",
                 "try"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": "힌트가 존재하지 않습니다."
         },
         {
             "question": "클래스 내부에서 자기 자신을 가리키는 키워드는?",
@@ -48,7 +52,8 @@
                 "me",
                 "super"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": "힌트가 존재하지 않습니다."
         },
         {
             "question": "다음 중 객체지향 프로그래밍 언어는?",
@@ -58,7 +63,15 @@
                 "Pascal",
                 "Assembly"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": "힌트가 존재하지 않습니다."
+        }
+    ],
+    "history": [
+        {
+            "date": "2026-04-15 13:08:47",
+            "played": 2,
+            "score": 100
         }
     ],
     "best_score": 100

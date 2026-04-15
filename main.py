@@ -7,9 +7,10 @@ def print_menu():
     print("=" * 40)
     print("1. 퀴즈 풀기")
     print("2. 퀴즈 추가")
-    print("3. 퀴즈 목록")
-    print("4. 점수 확인")
-    print("5. 종료")
+    print("3. 퀴즈 삭제")
+    print("4. 퀴즈 목록")
+    print("5. 플레이 기록")
+    print("6. 종료")
     print("=" * 40)
 
 def get_val_input():
@@ -21,13 +22,13 @@ def get_val_input():
         try:
             choice = int(user_input)
 
-            if 1 <= choice <= 5:
+            if 1 <= choice <= 6:
                 return choice
             else:
-                print("잘못된 입력입니다. 1-5 사이의 숫자를 입력해주세요")
+                print("잘못된 입력입니다. 1-6 사이의 숫자를 입력해주세요.")
 
         except ValueError:
-            print("잘못된 입력입니다. 1-5 사이의 숫자를 입력해주세요.")
+            print("잘못된 입력입니다. 1-6 사이의 숫자를 입력해주세요.")
 
 def main():
     game = QuizGame()
@@ -42,19 +43,21 @@ def main():
             elif choice == 2:
                 game.add_quiz()
             elif choice == 3:
-                game.show_quiz_list()
+                game.delete_quiz()
             elif choice == 4:
-                game.show_best_score()
+                game.show_quiz_list()
             elif choice == 5:
+                game.show_history()
+            elif choice == 6:
                 print("\n데이터를 저장합니다.")
                 game.save_data()
                 print("\n게임을 종료합니다.")
                 break
 
     except (KeyboardInterrupt, EOFError):
-        print("\n\n프로그램이 강제 종료되었습니다. 데이터를 저장 후 종료합니다")
+        print("\n\n프로그램이 강제 종료되었습니다. 데이터를 저장 후 종료합니다.")
         game.save_data()
-        print("\n\n데이터를 저장하는데 성공했습니다 게임을 종료합니다.")
+        print("\n데이터 저장이 완료되었습니다. 게임을 종료합니다.")
         sys.exit(0)
 
 if __name__ == "__main__":
