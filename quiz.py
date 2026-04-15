@@ -10,7 +10,8 @@ class Quiz:
         print("-" * 40)
 
         for i, choice in enumerate(self.choices, start = 1):
-            print("-" * 40)
+            print(f"{i}. {choice}")
+        print("-" * 40)
 
     def check_answer(self, user_answer):
         return self.answer == user_answer
