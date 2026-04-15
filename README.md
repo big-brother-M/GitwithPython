@@ -23,9 +23,9 @@
 ## 4. 실행 방법
 
 - 터미널에서 아래의 명령어를 입력하여 게임을 실행합니다.
-'''zsh
+```zsh
 python main.py
-'''
+```
 
 ## 5. 기능 명세
 
@@ -38,14 +38,14 @@ python main.py
 
 ## 6. 파일의 구조
 
-'''
+```
 my-quiz-game/
 ├── main.py        # 프로그램 실행 진입점 및 메뉴 UI 로직
 ├── quiz.py        # Quiz 클래스 (개별 퀴즈 데이터 모델)
 ├── quiz_game.py   # QuizGame 클래스 (게임 전체 상태 및 로직 관리)
 ├── state.json     # 퀴즈 및 플레이 기록이 저장되는 데이터 파일
 └── README.md      # 프로젝트 설명서
-'''
+```
 
 ## 7. 데이터 파일 (state.json)
 
@@ -54,11 +54,11 @@ my-quiz-game/
 - history : 게임 플레이 기록 리스트
 
 작성을 완료한다면, Git으로 관리합니다.
-'''zsh
+```zsh
 git add README.md
 git commit -m "Docs: README.md 프로젝트 설명 및 기능 명세 작성"
 git push origin main
-'''
+```
 
 ## 8. 실습 이미지
 
