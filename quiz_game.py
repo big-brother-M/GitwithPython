@@ -17,7 +17,7 @@ class QuizGame:
 
     def show_best_score(self):
         print("\n" + "=" * 40)
-        print(f"현재 최고 점수 : {self.show_best_score}점")
+        print(f"현재 최고 점수 : {self.best_score}점")
         print("=" * 40)
 
     def add_quiz(self):
