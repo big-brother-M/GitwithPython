@@ -1,4 +1,5 @@
 import sys
+from quiz_game import QuizGame
 
 def print_menu():
     print("\n" + "=" * 40)
@@ -29,6 +30,8 @@ def get_val_input():
             print("잘못된 입력입니다. 1-5 사이의 숫자를 입력해주세요.")
 
 def main():
+    game = QuizGame()
+
     try:
         while True:
             print_menu()
@@ -37,11 +40,11 @@ def main():
             if choice == 1:
                 print("\n[안내] '퀴즈 풀기' 기능은 현재 준비 중입니다. 다음에 다시 이용해주세요.")
             elif choice == 2:
-                print("\n[안내] '퀴즈 추가' 기능은 현재 준비 중입니다. 다음에 다시 이용해주세요.")
+                game.add_quiz()
             elif choice == 3:
-                print("\n[안내] '퀴즈 목록' 기능은 현재 준비 중입니다. 다음에 다시 이용해주세요.")
+                game.show_quiz_list()
             elif choice == 4:
-                print("\n[안내] '점수 확인' 기능은 현재 준비 중입니다. 다음에 다시 이용해주세요.")
+                game.show_best_score()
             elif choice == 5:
                 print("\n게임을 종료합니다.")
                 break
