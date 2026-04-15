@@ -38,7 +38,7 @@ def main():
             choice = get_val_input()
 
             if choice == 1:
-                print("\n[안내] '퀴즈 풀기' 기능은 현재 준비 중입니다. 다음에 다시 이용해주세요.")
+                game.play_quiz()
             elif choice == 2:
                 game.add_quiz()
             elif choice == 3:

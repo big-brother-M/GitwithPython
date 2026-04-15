@@ -35,7 +35,7 @@ def get_default_quizzers():
             answer=2,
         ),
         Quiz(
-            question="PYTHON에서 무한 반복을 할 때 주로 사용하는 함수는?",
+            question="PYTHON에서 무한 반복을 할 때 주로 사용하는 것은?",
             choices=["for", "while True", "if", "try"],
             answer=2,
         ),
