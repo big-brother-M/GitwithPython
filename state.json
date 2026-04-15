@@ -65,12 +65,28 @@
             ],
             "answer": 2,
             "hint": "힌트가 존재하지 않습니다."
+        },
+        {
+            "question": "다음 중 숫자형 자료형아닌 것은?",
+            "choices": [
+                "int",
+                "float",
+                "str",
+                "complex"
+            ],
+            "answer": 3,
+            "hint": "힌트가 없습니다."
         }
     ],
     "history": [
         {
             "date": "2026-04-15 13:08:47",
             "played": 2,
+            "score": 100
+        },
+        {
+            "date": "2026-04-15 13:41:21",
+            "played": 7,
             "score": 100
         }
     ],
