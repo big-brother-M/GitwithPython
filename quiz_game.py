@@ -12,6 +12,16 @@ class QuizGame:
         self.best_score = 0
         self.load_data()
 
+    @staticmethod
+    def _quiz_key(question, choices, answer):
+        return (question, tuple(choices), answer)
+
+    def _default_hint_map(self):
+        return {
+            self._quiz_key(q.question, q.choices, q.answer): q.hint
+            for q in get_default_quizzers()
+        }
+
     def save_data(self):
         quiz_dicts = []
         for q in self.quizzes:
@@ -47,13 +57,32 @@ class QuizGame:
             self.history = raw_history if isinstance(raw_history, list) else []
             self.best_score = data.get("best_score", 0)
             self.quizzes = []
+            default_hint_map = self._default_hint_map()
             
             for q_data in data.get("quizzes", []):
+                quiz_key = self._quiz_key(
+                    q_data["question"],
+                    q_data["choices"],
+                    q_data["answer"],
+                )
+                hint = q_data.get("hint")
+
+                if not isinstance(hint, str):
+                    hint = ""
+
+                hint = hint.strip()
+                default_hint = default_hint_map.get(quiz_key)
+
+                if default_hint and (not hint or hint == "힌트가 존재하지 않습니다."):
+                    hint = default_hint
+                elif not hint:
+                    hint = "힌트가 없습니다."
+
                 quiz = Quiz(
                     question=q_data["question"],
                     choices=q_data["choices"],
                     answer=q_data["answer"],
-                    hint=q_data.get("hint", "힌트가 존재하지 않습니다.")
+                    hint=hint
                 )
                 self.quizzes.append(quiz)
 
@@ -120,6 +149,7 @@ class QuizGame:
         
         for q in selected_quizzes:
             q.display_quiz()
+            print("힌트가 필요하면 답 대신 H를 입력하세요.")
             hint_used = False
 
             while True:
