@@ -498,6 +498,10 @@ JSON 파일은 저장할 때마다 전체 파일을 다시 쓰고, 시작할 때
 
 ![저장 이미지](./docs/screenshots/save.png)
 
+### Git Log 확인
+
+![저장 이미지](./docs/screenshots/log.png)
+
 ## 15. 마무리 정리
 
 이 프로젝트는 단순한 CLI 프로그램이지만, 아래 학습 요소를 모두 포함합니다.
