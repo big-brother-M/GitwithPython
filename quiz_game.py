@@ -9,6 +9,7 @@ class QuizGame:
         self.file_path = "state.json"
         self.quizzes = []
         self.history = []
+        self.best_score = 0
         self.load_data()
 
     def save_data(self):
@@ -23,7 +24,8 @@ class QuizGame:
 
         data = {
             "quizzes" : quiz_dicts,
-            "history" : self.history
+            "history" : self.history,
+            "best_score" : self.best_score
         }
 
         try:
@@ -41,7 +43,9 @@ class QuizGame:
             with open(self.file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            self.history = data.get("history", [])
+            raw_history = data.get("history", [])
+            self.history = raw_history if isinstance(raw_history, list) else []
+            self.best_score = data.get("best_score", 0)
             self.quizzes = []
             
             for q_data in data.get("quizzes", []):
@@ -52,11 +56,22 @@ class QuizGame:
                     hint=q_data.get("hint", "힌트가 존재하지 않습니다.")
                 )
                 self.quizzes.append(quiz)
-            print(f"데이터를 불러왔습니다. (퀴즈 {len(self.quizzes)}개, 플레이 기록 {self.history}건)")
+
+            history_best = max(
+                (record.get("score", 0) for record in self.history),
+                default=0,
+            )
+            self.best_score = max(self.best_score, history_best)
+
+            print(
+                f"데이터를 불러왔습니다. "
+                f"(퀴즈 {len(self.quizzes)}개, 플레이 기록 {len(self.history)}건)"
+            )
         
-        except (json.JSONDecodeError, KeyError):
+        except (json.JSONDecodeError, KeyError, TypeError):
             print("데이터 파일이 손상되었습니다. 기본 퀴즈로 초기화합니다.")            
             self.quizzes = get_default_quizzers()
+            self.history = []
             self.best_score = 0
 
     def show_history(self):
@@ -72,7 +87,7 @@ class QuizGame:
             print("--- 최근 기록 ---")
 
             for record in reversed(self.history):
-                print(f"[{record['data']}] {record['played']}문제 풀이 -> {record['score']}점")
+                print(f"[{record['date']}] {record['played']}문제 풀이 -> {record['score']}점")
         print("=" * 40)
 
 
@@ -99,11 +114,11 @@ class QuizGame:
 
         selected_quizzes = random.sample(self.quizzes, play_count)
 
-        print(f"\n퀴즈를 시작합니다 (총 {len(play_count)}문제)")
-        total_score = 0
+        print(f"\n퀴즈를 시작합니다 (총 {play_count}문제)")
+        total_points = 0
         max_score = play_count * 10
         
-        for q in self.quizzes:
+        for q in selected_quizzes:
             q.display_quiz()
             hint_used = False
 
@@ -134,26 +149,26 @@ class QuizGame:
             if q.check_answer(user_answer):
                 earned = 5 if hint_used else 10
                 print(f"정답입니다! (+{earned}점)\n")
-                total_score += 1
+                total_points += earned
             else:
                 print(f"오답입니다. 정답은 {q.answer}번 입니다.\n")
 
-        final_score = int((total_score / max_score) * 100)
+        final_score = int((total_points / max_score) * 100)
 
         print("=" * 40)
-        print(f"결과 : {len(play_count)}문제 풀이 완료하셨습니다. 총 점수는 {final_score}점 입니다.")
+        print(f"결과 : {play_count}문제 풀이 완료하셨습니다. 총 점수는 {final_score}점 입니다.")
         print("=" * 40)
         
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.history.append({
-            "data": now,
+            "date": now,
             "played": play_count,
             "score": final_score
         })
 
-        if score > self.best_score:
+        if final_score > self.best_score:
             print("신기록 경신!")
-            self.best_score = score
+            self.best_score = final_score
         print("=" * 40)
 
     def show_quiz_list(self):
@@ -203,7 +218,7 @@ class QuizGame:
         if not hint:
             hint = "힌트가 없습니다."
         
-        new_quiz = Quiz(question, choices, answer)
+        new_quiz = Quiz(question, choices, answer, hint=hint)
         self.quizzes.append(new_quiz)
         print("\n퀴즈가 성공적으로 추가되었습니다!")
 
